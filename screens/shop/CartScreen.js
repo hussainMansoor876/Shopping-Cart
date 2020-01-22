@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, FlatList, Button, StyleSheet, ActivityIndicator } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
+// import StripeCheckout from './StripeCheckout'
 
 import Colors from '../../constants/Colors';
 import CartItem from '../../components/shop/CartItem';
@@ -12,7 +13,7 @@ const CartScreen = props => {
   const [isLoading, setIsLoading] = useState(false);
   const cartTotalAmount = useSelector(state => state.cart.totalAmount);
 
-  
+
 
 
   const cartItems = useSelector(state => {
@@ -33,25 +34,32 @@ const CartScreen = props => {
   const dispatch = useDispatch();
 
   const sendOrderHandler = async () => {
-      setIsLoading(true);
+    setIsLoading(true);
     await dispatch(cartActions.removeFromCart(itemData.item.productId));
     setIsLoading(false);
   }
 
   const orderNowEvent = async (cartItems, cartTotalAmount) => {
-        //todo 
-        console.log("hello")
+    //todo 
+    console.log("hello")
 
 
 
-        //if payment went through, than:
+    //if payment went through, than:
     saveOrderToFirebase(cartItems, cartTotalAmount);
   }
 
   const saveOrderToFirebase = (cartItems, cartTotalAmount) => {
-     dispatch(ordersActions.addOrder(cartItems, cartTotalAmount));
+    dispatch(ordersActions.addOrder(cartItems, cartTotalAmount));
   }
 
+  const onPaymentSuccess = (token) => {
+    // send the stripe token to your backend!
+  }
+
+  const onClose = () => {
+    // maybe navigate to other screen here?
+  }
 
   return (
     <View style={styles.screen}>
@@ -62,17 +70,17 @@ const CartScreen = props => {
             ${Math.round(cartTotalAmount.toFixed(2) * 100) / 100}
           </Text>
         </Text>
-        {isLoading ? <ActivityIndicator size='small' color= {Colors.primary} /> : 
-        <Button
-        color={Colors.accent}
-        title="Order Now"
-        disabled={cartItems.length === 0}
-        onPress={() => {
-          orderNowEvent(cartItems, cartTotalAmount);
-        }}
-        />
+        {isLoading ? <ActivityIndicator size='small' color={Colors.primary} /> :
+          <Button
+            color={Colors.accent}
+            title="Order Now"
+            disabled={cartItems.length === 0}
+            onPress={() => {
+              orderNowEvent(cartItems, cartTotalAmount);
+            }}
+          />
         }
-        
+
       </Card>
       <FlatList
         data={cartItems}
