@@ -23,7 +23,11 @@
       "**/*"
     ],
     "ios": {
+      "bundleIdentifier": "com.shopping.shopping",
       "supportsTablet": true
+    },
+    "android": {
+      "package": "com.shopping.shopping"
     }
   }
 }
