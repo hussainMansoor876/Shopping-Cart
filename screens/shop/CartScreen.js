@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, FlatList, Button, StyleSheet, ActivityIndicator } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 // import StripeCheckout from './StripeCheckout'
+import AddSubscription from './AddSubscription'
 
 import Colors from '../../constants/Colors';
 import CartItem from '../../components/shop/CartItem';
@@ -11,6 +12,7 @@ import * as ordersActions from '../../store/actions/orders';
 
 const CartScreen = props => {
   const [isLoading, setIsLoading] = useState(false);
+  const [pay, setPay] = useState(false)
   const cartTotalAmount = useSelector(state => state.cart.totalAmount);
 
 
@@ -42,11 +44,12 @@ const CartScreen = props => {
   const orderNowEvent = async (cartItems, cartTotalAmount) => {
     //todo 
     console.log("hello")
+    setPay(true)
 
 
 
     //if payment went through, than:
-    saveOrderToFirebase(cartItems, cartTotalAmount);
+    // saveOrderToFirebase(cartItems, cartTotalAmount);
   }
 
   const saveOrderToFirebase = (cartItems, cartTotalAmount) => {
@@ -61,6 +64,14 @@ const CartScreen = props => {
     // maybe navigate to other screen here?
   }
 
+
+  if (pay) {
+    return (
+      <AddSubscription
+      amount={cartTotalAmount}
+      />
+    )
+  }
   return (
     <View style={styles.screen}>
       <Card style={styles.summary}>
