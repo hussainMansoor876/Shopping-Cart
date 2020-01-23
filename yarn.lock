@@ -2604,7 +2604,7 @@ expo-location@~8.0.0:
   dependencies:
     invariant "^2.2.4"
 
-expo-payments-stripe@~8.0.0:
+expo-payments-stripe@^8.0.1:
   version "8.0.1"
   resolved "https://registry.yarnpkg.com/expo-payments-stripe/-/expo-payments-stripe-8.0.1.tgz#8853a01644819cdf1ae51aad60cfcb891586cc56"
   integrity sha512-47jaD98J+UDRKoI6otMc3y6K4qYZdrWwt1Y8cFwwyzBdrbz18a9A87qayBXAHCYkQnCqLSiTeETwQ0qyVAoHFw==
@@ -4882,6 +4882,11 @@ react-native-safe-area-view@^0.14.1:
   integrity sha512-tOxHGQUN83MTmQB4ghoQkibqOdGiX4JQEmeyEv96MKWO/x8T2PJv84ECUos9hD3blPRQwVwSpAid1PPPhrVEaw==
   dependencies:
     debounce "^1.2.0"
+
+react-native-stripe-api@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/react-native-stripe-api/-/react-native-stripe-api-0.1.0.tgz#d1cb21fb0dc7ecc643f53d3e88a18e98e9d81ffd"
+  integrity sha1-0csh+w3H7MZD9T0+iKGOmOnYH/0=
 
 react-native-view-shot@3.0.2:
   version "3.0.2"
