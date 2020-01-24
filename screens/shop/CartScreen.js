@@ -56,7 +56,9 @@ const CartScreen = props => {
   const saveOrderToFirebase = (cartTotalAmount) => {
     console.log("Added")
     setPay(false)
-    dispatch(ordersActions.addOrder(cartItems, cartTotalAmount));
+    setTimeout(() => {
+      dispatch(ordersActions.addOrder(cartItems, cartTotalAmount));
+    }, 500)
   }
 
   const onPaymentSuccess = (token) => {
@@ -72,8 +74,8 @@ const CartScreen = props => {
   if (pay) {
     return (
       <AddSubscription
-      amount={cartTotalAmount}
-      saveOrderToFirebase={saveOrderToFirebase}
+        amount={cartTotalAmount}
+        saveOrderToFirebase={saveOrderToFirebase}
       />
     )
   }
