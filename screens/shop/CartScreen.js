@@ -43,8 +43,6 @@ const CartScreen = props => {
 
   const orderNowEvent = async (cartItems, cartTotalAmount) => {
     //todo 
-    console.log("hello", cartItems)
-    console.log('v', cartTotalAmount)
     setPay(true)
 
 
@@ -54,21 +52,12 @@ const CartScreen = props => {
   }
 
   const saveOrderToFirebase = (cartTotalAmount) => {
-    console.log("Added")
-    setPay(false)
+    dispatch(ordersActions.addOrder(cartItems, cartTotalAmount));
     setTimeout(() => {
-      dispatch(ordersActions.addOrder(cartItems, cartTotalAmount));
+      setPay(false)
     }, 500)
   }
 
-  const onPaymentSuccess = (token) => {
-    // send the stripe token to your backend!
-  }
-
-  const onClose = () => {
-    console.log("Hello", cartItems)
-    // maybe navigate to other screen here?
-  }
 
 
   if (pay) {

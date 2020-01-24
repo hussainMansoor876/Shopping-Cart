@@ -105,15 +105,18 @@ export default class AddSubscription extends React.Component {
                 return;
             }
             const amount = Math.round(this.props.amount.toFixed(2) * 100) / 100
-            const response = await axios.post('https://h5k4s.sse.codesandbox.io/checkout', {
+            const response = await axios.post('http://shopping-stripe-server.herokuapp.com/checkout', {
                 token: creditCardToken,
                 amount
             })
             console.log("Response", response.data)
             const { status } = response.data
-            if(status === "success"){
+            if (status === "success") {
                 Alert.alert("Pay Successfully")
                 this.props.saveOrderToFirebase(amount)
+            }
+            else {
+                Alert.alert("Something went wrong!!!")
             }
         } catch (e) {
             // Reset the state if the request was sent with an error
