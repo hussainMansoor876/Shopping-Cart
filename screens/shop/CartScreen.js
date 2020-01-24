@@ -43,7 +43,8 @@ const CartScreen = props => {
 
   const orderNowEvent = async (cartItems, cartTotalAmount) => {
     //todo 
-    console.log("hello")
+    console.log("hello", cartItems)
+    console.log('v', cartTotalAmount)
     setPay(true)
 
 
@@ -52,7 +53,9 @@ const CartScreen = props => {
     // saveOrderToFirebase(cartItems, cartTotalAmount);
   }
 
-  const saveOrderToFirebase = (cartItems, cartTotalAmount) => {
+  const saveOrderToFirebase = (cartTotalAmount) => {
+    console.log("Added")
+    setPay(false)
     dispatch(ordersActions.addOrder(cartItems, cartTotalAmount));
   }
 
@@ -61,6 +64,7 @@ const CartScreen = props => {
   }
 
   const onClose = () => {
+    console.log("Hello", cartItems)
     // maybe navigate to other screen here?
   }
 
@@ -69,6 +73,7 @@ const CartScreen = props => {
     return (
       <AddSubscription
       amount={cartTotalAmount}
+      saveOrderToFirebase={saveOrderToFirebase}
       />
     )
   }

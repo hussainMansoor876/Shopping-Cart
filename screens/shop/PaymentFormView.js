@@ -20,7 +20,7 @@ export default class PaymentFormView extends React.Component {
         </View>
         <View style={styles.buttonWrapper}>
           <Button
-            title={`Pay ${Math.round(amount.toFixed(2) * 100) / 100}`}
+            title={`Pay $${Math.round(amount.toFixed(2) * 100) / 100}`}
             disabled={!this.state.cardData.valid || submitted}
             onPress={() => onSubmit(this.state.cardData)}
           />

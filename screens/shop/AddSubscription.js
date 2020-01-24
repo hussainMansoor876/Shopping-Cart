@@ -4,6 +4,7 @@ const STRIPE_ERROR = 'Payment service error. Try again later.';
 const SERVER_ERROR = 'Server error. Try again later.';
 const STRIPE_PUBLISHABLE_KEY = 'pk_test_EnqXOfMVnJNJnNFgA5z2Ctuh00JrlKQ1V9';
 import axios from 'axios'
+import { Alert } from 'react-native';
 /**
  * The method sends HTTP requests to the Stripe API.
  * It's necessary to manually send the payment data
@@ -97,15 +98,22 @@ export default class AddSubscription extends React.Component {
             // Create a credit card token
             creditCardToken = await getCreditCardToken(creditCardInput);
             console.log('token1', creditCardToken)
-            const response = await axios.post('https://h5k4s.sse.codesandbox.io/checkout',{
-                token: creditCardToken
-            })
-            console.log("Response", response.data)
             if (creditCardToken.error) {
                 // Reset the state if Stripe responds with an error
                 // Set submitted to false to let the user subscribe again
                 this.setState({ submitted: false, error: STRIPE_ERROR });
                 return;
+            }
+            const amount = Math.round(this.props.amount.toFixed(2) * 100) / 100
+            const response = await axios.post('https://h5k4s.sse.codesandbox.io/checkout', {
+                token: creditCardToken,
+                amount
+            })
+            console.log("Response", response.data)
+            const { status } = response.data
+            if(status === "success"){
+                Alert.alert("Pay Successfully")
+                this.props.saveOrderToFirebase(amount)
             }
         } catch (e) {
             // Reset the state if the request was sent with an error
